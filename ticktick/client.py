@@ -32,7 +32,15 @@ class TickTickClient:
         return json.loads(resp.content.decode('utf8'))['token']
 
     def get_completed_tasks(self, start_time: str, end_time: str, limit: int = 100):
+        """
+        get completed tasks
+        :param start_time: utc date, formate: %Y-%m-%d %H:%M:%S
+        :param end_time: task end time, formate: %Y-%m-%d %H:%M:%S
+        :param limit: default 100, max task = max(limit, you tasks)
+        :return: tasks
+        """
         url = self._url + '/api/v2/project/all/completed'
+        self.headers.update({'Authorization': f"OAuth {self.get_token()}"})
         resp = requests.get(
             url=url,
             params={
@@ -40,7 +48,7 @@ class TickTickClient:
                 'to': end_time,
                 'limit': limit,
             },
-            headers=self.headers.update({'Authorization': f"OAuth {self.get_token()}"}),
+            headers=self.headers,
         )
         if resp.status_code == 200:
             return json.loads(resp.content.decode('utf8'))
