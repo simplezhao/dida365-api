@@ -41,6 +41,14 @@
   }
 ]
 ```
+| 字段 | 说明     |
+|----|--------|
+| title  | task标题 |
+| content  | task内容 |
+| createdTime  | 创建时间   |
+| completedTime  | 完成时间   |
+
+
 ## 使用
 目前仅支持下面的操作
 1. 获取token
